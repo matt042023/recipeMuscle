@@ -13,13 +13,19 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body>
+    <body class="min-h-screen flex flex-col">
+    <header>
     {% block header %}
         {% include 'components/Navbar.html.twig' %}
     {% endblock %}
+    </header>
+    <main class="flex-grow flex items-center justify-center bg-white dark:bg-gray-900">
         {% block body %}{% endblock %}
-    {% block footer %}
-        {% include 'components/Footer.html.twig' %}
-    {% endblock %}
+    </main>
+    <footer class="flex-shrink-0">
+        {% block footer %}
+            {% include 'components/Footer.html.twig' %}
+        {% endblock %}
+    </footer>
     </body>
 </html>
