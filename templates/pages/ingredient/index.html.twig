@@ -7,7 +7,10 @@
     <div class=" flex justify-center">
         <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Mes Ingredients</h1>
     </div>
-    <div class="px-80 py-20">
+    <div class="count text-gray-500 dark:text-gray-400">
+    Nombre d'ingrédients total : {{ ingredients.getTotalItemCount }}
+    </div>
+    <div class="px-5 py-5">
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -45,6 +48,9 @@
                 {% endfor %}
                 </tbody>
             </table>
+        </div>
+        <div class="navigation flex justify-center mt-5">
+            {{ knp_pagination_render(ingredients) }}
         </div>
     </div>
 </div>
