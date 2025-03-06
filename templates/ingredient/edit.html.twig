@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Ingredient
+{% endblock %}
+
+{% block body %}
+	<div class="flex flex-col items-center justify-center p-6 mt-24">
+		<h1 class="mb-14 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+			Modifier l'ingrédient
+		</h1>
+
+		{# Affichage des messages flash #}
+		{% for label, messages in app.flashes %}
+			{% for message in messages %}
+				<span class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+					<span class="w-2 h-2 me-1 bg-green-500 rounded-full"></span>
+					{{ message }}
+				</span>
+			{% endfor %}
+		{% endfor %}
+
+		<div class="w-full max-w-sm">
+			{{ include('ingredient/_form.html.twig', {'button_label': 'Update'}) }}
+		</div>
+
+		<div class="mt-6 flex flex-col items-center space-y-4 w-full max-w-sm">
+			<div class="w-full">
+				{{ include('ingredient/_delete_form.html.twig') }}
+			</div>
+			<a href="{{ path('app_ingredient_index') }}" class="w-full">
+				<button type="button" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+					Retour à la liste
+				</button>
+			</a>
+
+
+		</div>
+	</div>
+{% endblock %}

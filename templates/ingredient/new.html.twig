@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Ingredient
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="flex-grow justify-center mt-24">
+		<div class=" flex justify-center mb-14">
+			<h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Créer un nouvel ingrédient</h1>
+		</div>
+		{# Affichage des messages flash #}
+		{% for label, messages in app.flashes %}
+			{% for message in messages %}
+				<span class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+					<span class="w-2 h-2 me-1 bg-green-500 rounded-full"></span>
+					{{ message }}
+				</span>
+			{% endfor %}
+		{% endfor %}
+		<div class=" flex justify-center">
+			{{ include('ingredient/_form.html.twig') }}
+			<a href="{{ path('app_ingredient_index') }}">
+				<button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Retour à la liste</button>
+			</a>
+		</div>
+
+
+	</div>
+{% endblock %}

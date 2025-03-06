@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Repository\IngredientRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: IngredientRepository::class)]
+#[UniqueEntity(fields: ['name'], message: 'Cet ingredient existe déjà')]
 class Ingredient
 {
     #[ORM\Id]
@@ -14,12 +16,12 @@ class Ingredient
     #[ORM\Column]
     private int $id;
 
-    #[ORM\Column(type: 'string',length: 50)]
+    #[ORM\Column(type: 'string', length: 50)]
     #[Assert\NotBlank]
-    #[Assert\Length(min:2,max:50, minMessage:"minErrorMessage",maxMessage:"MaxErrorMessage")]
-    private string $name ;
+    #[Assert\Length(min: 2, max: 50, minMessage: "minErrorMessage", maxMessage: "MaxErrorMessage")]
+    private string $name;
 
-    #[ORM\Column (type: "float")]
+    #[ORM\Column(type: "float")]
     #[assert\NotNull(message: "Price should not be null")]
     #[Assert\Positive]
     #[Assert\LessThan(200)]
@@ -33,7 +35,7 @@ class Ingredient
     {
         $this->createdAt = new \DateTimeImmutable();
     }
-    
+
     public function getId(): ?int
     {
         return $this->id;
