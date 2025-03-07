@@ -1,0 +1,64 @@
+{# templates/recipe/_form.html.twig #}
+{{ form_start(form, { attr: { class: 'mx-auto' } }) }}
+
+<div class="mb-5">
+	{{ form_label(form.name, "Nom", { label_attr: { class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" } }) }}
+	{{ form_widget(form.name, { attr: { class: "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" } }) }}
+	{% if form_errors(form.name) is not empty %}
+		<span class="text-sm text-red-600 dark:text-red-400">{{ form_errors(form.name) }}</span>
+	{% endif %}
+</div>
+
+<div class="mb-5">
+	{{ form_label(form.time, "Temps (minutes)", { label_attr: { class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" } }) }}
+	{{ form_widget(form.time, { attr: { class: "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" } }) }}
+</div>
+
+<div class="mb-5">
+	{{ form_label(form.nbPeople, "Nombre de personnes", { label_attr: { class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" } }) }}
+	{{ form_widget(form.nbPeople, { attr: { class: "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" } }) }}
+</div>
+
+<div class="mb-5">
+	{{ form_label(form.difficulty, "Difficulté", { label_attr: { class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" } }) }}
+	{{ form_widget(form.difficulty, { attr: { class: "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" } }) }}
+</div>
+
+<div class="mb-5">
+	{{ form_label(form.price, "Prix estimé (€)", { label_attr: { class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" } }) }}
+	{{ form_widget(form.price, { attr: { class: "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" } }) }}
+</div>
+
+<div class="mb-5">
+	{{ form_label(form.description, "Description", { label_attr: { class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" } }) }}
+	{{ form_widget(form.description, { attr: { class: "shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white" } }) }}
+</div>
+
+<div class="mb-5">
+	{{ form_label(form.ingredients, "Ingrédients", { label_attr: { class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" } }) }}
+
+	<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+		{% for choice in form.ingredients %}
+			<div class="flex items-center p-2 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
+				{{ form_widget(choice, { attr: { class: "w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" } }) }}
+				<label for="{{ choice.vars.id }}" class="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 px-2">
+					{{ choice.vars.label }}
+				</label>
+			</div>
+		{% endfor %}
+	</div>
+</div>
+
+
+<div class="mb-5 flex items-center">
+	{{ form_widget(form.isFavorite, { attr: { class: "w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" } }) }}
+	<label for="{{ form.isFavorite.vars.id }}" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+		Ajouter aux favoris
+	</label>
+</div>
+
+<button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+	{{ button_label|default('Enregistrer') }}
+</button>
+
+{{ form_end(form) }}

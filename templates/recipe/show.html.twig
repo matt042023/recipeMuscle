@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ recipe.name }}
+	- Détail
+{% endblock %}
+
+{% block body %}
+	<div class="flex flex-col items-center justify-center p-6">
+		<h1 class="mb-8 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+			{{ recipe.name }}
+		</h1>
+
+		{# Affichage des messages flash #}
+		{% for label, messages in app.flashes %}
+			{% for message in messages %}
+				<div class="w-full max-w-lg mb-4 p-4 text-sm text-green-800 bg-green-100 rounded-lg dark:bg-green-900 dark:text-green-300">
+					{{ message }}
+				</div>
+			{% endfor %}
+		{% endfor %}
+
+		<div class="w-full max-w-lg bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700 p-6">
+			<h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Informations générales</h2>
+
+			<ul class="text-gray-700 dark:text-gray-300">
+				<li class="mb-2">
+					<strong>Temps de préparation :</strong>
+					{{ recipe.time ?: 'Non précisé' }}
+					min</li>
+				<li class="mb-2">
+					<strong>Nombre de personnes :</strong>
+					{{ recipe.nbPeople ?: 'Non précisé' }}</li>
+				<li class="mb-2">
+					<strong>Difficulté :</strong>
+					{% if recipe.difficulty == 1 %}
+						<span class="text-green-500">Facile</span>
+					{% elseif recipe.difficulty == 2 %}
+						<span class="text-blue-500">Moyen</span>
+					{% elseif recipe.difficulty == 3 %}
+						<span class="text-yellow-500">Difficile</span>
+					{% elseif recipe.difficulty == 4 %}
+						<span class="text-orange-500">Très difficile</span>
+					{% else %}
+						<span class="text-red-500">Expert</span>
+					{% endif %}
+				</li>
+				<li class="mb-2">
+					<strong>Prix estimé :</strong>
+					{{ recipe.price ?: 'Non précisé' }}
+					€</li>
+				<li class="mb-2">
+					<strong>Favori :</strong>
+					{% if recipe.isFavorite %}
+						<span class="text-green-500">Oui</span>
+					{% else %}
+						<span class="text-red-500">Non</span>
+					{% endif %}
+				</li>
+				<li class="mb-2">
+					<strong>Date de création :</strong>
+					{{ recipe.createdAt|date('d/m/Y') }}</li>
+				<li class="mb-4">
+					<strong>Dernière mise à jour :</strong>
+					{{ recipe.updatedAt|date('d/m/Y') }}</li>
+			</ul>
+
+			<h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Ingrédients</h2>
+			<ul class="text-gray-700 dark:text-gray-300">
+				{% for ingredient in recipe.ingredients %}
+					<li class="mb-2">🍽
+						{{ ingredient.name }}
+						({{ ingredient.price }}
+						€)</li>
+				{% else %}
+					<li>Aucun ingrédient spécifié.</li>
+				{% endfor %}
+			</ul>
+
+			<h2 class="text-2xl font-bold text-gray-900 dark:text-white mt-6 mb-4">Description</h2>
+			<p class="text-gray-700 dark:text-gray-300">
+				{{ recipe.description }}
+			</p>
+
+			<div class="mt-6 flex flex-col space-y-4">
+				<a href="{{ path('app_recipe_edit', {'id': recipe.id}) }}">
+					<button type="button" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+						Modifier la recette
+					</button>
+				</a>
+
+				<a href="{{ path('app_recipe_index') }}">
+					<button type="button" class="w-full text-gray-900 bg-gray-200 hover:bg-gray-300 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-800 focus:outline-none dark:focus:ring-gray-600">
+						Retour à la liste
+					</button>
+				</a>
+
+				<div class="w-full">
+					{{ include('recipe/_delete_form.html.twig') }}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
